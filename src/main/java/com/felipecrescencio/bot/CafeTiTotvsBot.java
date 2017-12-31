@@ -10,9 +10,14 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
+        	String s = update.getMessage().getText();
+        	if(update.getMessage().getText().equalsIgnoreCase("Aline chata"))
+        		s = "Mentira, a Aline é legal.";
+        	
             SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                     .setChatId(update.getMessage().getChatId())
-                    .setText(update.getMessage().getText());
+                    .setText(s);
+
             try {
                 execute(message); // Call method to send the message
             } catch (TelegramApiException e) {
