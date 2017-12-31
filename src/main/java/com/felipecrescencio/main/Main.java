@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.felipecrescencio;
+package com.felipecrescencio.main;
 
+import com.felipecrescencio.bot.CafeTiTotvsBot;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -46,6 +50,16 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Main.class, args);
+    
+    ApiContextInitializer.init();
+
+    TelegramBotsApi botsApi = new TelegramBotsApi();
+
+    try {
+        botsApi.registerBot(new CafeTiTotvsBot());
+    } catch (TelegramApiException e) {
+        e.printStackTrace();
+    }
   }
 
   @RequestMapping("/")
