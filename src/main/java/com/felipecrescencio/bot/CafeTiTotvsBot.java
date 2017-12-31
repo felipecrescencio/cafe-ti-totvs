@@ -11,7 +11,7 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 		// We check if the update has a message and the message has text
 		if (update.hasMessage() && update.getMessage().hasText()) {
 			String message2 = update.getMessage().getText().toLowerCase().trim(); 
-			if(message2.indexOf("cafe dessa semana") >= 0) {
+			if((message2.indexOf("cafe") >= 0 || message2.indexOf("café") >= 0) && message2.indexOf("semana") >= 0) {
 				String s = "O café dessa semana é da Aline.";
 
 				SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
