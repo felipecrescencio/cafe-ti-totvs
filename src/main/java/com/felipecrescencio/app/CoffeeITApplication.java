@@ -42,6 +42,8 @@ import com.felipecrescencio.config.JpaConfiguration;
 public class CoffeeITApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CoffeeITApplication.class);
+	
+	public static CafeTiTotvsBot cttb = new CafeTiTotvsBot();
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
@@ -50,7 +52,7 @@ public class CoffeeITApplication {
 		TelegramBotsApi botsApi = new TelegramBotsApi();
 
 		try {
-			botsApi.registerBot(new CafeTiTotvsBot());
+			botsApi.registerBot(cttb);
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}

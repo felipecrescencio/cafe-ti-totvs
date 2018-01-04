@@ -18,7 +18,7 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 	private static final Logger log = LoggerFactory.getLogger(CafeTiTotvsBot.class);
 
 	@Autowired
-    WeeklyCoffeeService weeklyCoffeeService;
+    public WeeklyCoffeeService weeklyCoffeeService;
     
 	@Override
 	public void onUpdateReceived(Update update) {
@@ -26,9 +26,12 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 		if (update.hasMessage() && update.getMessage().hasText()) {
 			String message2 = update.getMessage().getText().toLowerCase().trim(); 
 			if((message2.indexOf("cafe") >= 0 || message2.indexOf("café") >= 0) && message2.indexOf("semana") >= 0) {
-				List<WeeklyCoffee> lwc = weeklyCoffeeService.findAll();
+				String s = "";
+				if(weeklyCoffeeService != null) {
+					List<WeeklyCoffee> lwc = weeklyCoffeeService.findAll();
 
-				String s = "O café dessa semana é do(a) "+ lwc.get(0).getName() +".";
+					s = "O café dessa semana é do(a) "+ lwc.get(0).getName() +".";
+				}
 
 				SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
 						.setChatId(update.getMessage().getChatId())

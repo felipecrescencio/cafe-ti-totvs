@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.felipecrescencio.app.CoffeeITApplication;
 import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.service.WeeklyCoffeeService;
 
@@ -21,6 +22,7 @@ public class WeeklyCoffeeController {
 
     @RequestMapping("/")
 	String index() {
+    	CoffeeITApplication.cttb.weeklyCoffeeService = weeklyCoffeeService;
 		return "index";
 	}
 
