@@ -1,0 +1,12 @@
+datasource:
+  coffeeitapp:
+    url: jdbc:postgres://txnhxbncdblocb:339e0947b314465fd63c66b15dcdeba9ab85b424ab7e8bb86ca9e00bb605e833@ec2-23-21-164-107.compute-1.amazonaws.com:5432/ddgpuvc9d545qs
+    username: ddgpuvc9d545qs
+    driverClassName: org.postgresql.Driver
+    defaultSchema:
+    maxPoolSize: 20
+    hibernate:
+      hbm2ddl.method: update
+      show_sql: true
+      format_sql: true
+      dialect: org.hibernate.dialect.PostgreSQL9Dialect

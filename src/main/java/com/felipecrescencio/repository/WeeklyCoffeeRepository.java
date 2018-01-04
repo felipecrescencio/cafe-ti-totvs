@@ -1,10 +1,10 @@
 package com.felipecrescencio.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import org.springframework.data.repository.CrudRepository;
+import com.felipecrescencio.entity.WeeklyCoffee;
 
-public interface WeeklyCoffeeRepository extends CrudRepository<WeeklyCoffee, Long> {
-    List<WeeklyCoffee> findByName(String name);
-    List<WeeklyCoffee> findByDayOfWeek(String dayOfWeek);
+@Repository
+public interface WeeklyCoffeeRepository extends JpaRepository<WeeklyCoffee, Long> {
 }

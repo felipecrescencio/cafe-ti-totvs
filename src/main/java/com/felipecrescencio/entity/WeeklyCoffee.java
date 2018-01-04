@@ -1,4 +1,4 @@
-package com.felipecrescencio.repository;
+package com.felipecrescencio.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,7 +25,7 @@ public class WeeklyCoffee {
 
     private String whoBroughtName;
 
-    protected WeeklyCoffee() {}
+    public WeeklyCoffee() {}
 
     public WeeklyCoffee(String name, Calendar dayOfWeek, String whoBroughtName) {
 		super();
