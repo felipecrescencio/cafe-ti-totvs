@@ -10,10 +10,15 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.service.WeeklyCoffeeService;
+import com.felipecrescencio.service.WeeklyCoffeeServiceBean;
 
 public class CafeTiTotvsBot extends TelegramLongPollingBot {
     @Autowired
     WeeklyCoffeeService weeklyCoffeeService;
+    
+    public CafeTiTotvsBot() {
+    	weeklyCoffeeService = new WeeklyCoffeeServiceBean();
+    }
 	
 	@Override
 	public void onUpdateReceived(Update update) {
