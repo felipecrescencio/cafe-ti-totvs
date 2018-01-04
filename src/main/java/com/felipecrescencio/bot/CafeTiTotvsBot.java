@@ -3,6 +3,7 @@ package com.felipecrescencio.bot;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -10,15 +11,12 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.service.WeeklyCoffeeService;
-import com.felipecrescencio.service.WeeklyCoffeeServiceBean;
 
+@Controller
 public class CafeTiTotvsBot extends TelegramLongPollingBot {
-    @Autowired
+
+	@Autowired
     WeeklyCoffeeService weeklyCoffeeService;
-    
-    public CafeTiTotvsBot() {
-    	weeklyCoffeeService = new WeeklyCoffeeServiceBean();
-    }
 	
 	@Override
 	public void onUpdateReceived(Update update) {
