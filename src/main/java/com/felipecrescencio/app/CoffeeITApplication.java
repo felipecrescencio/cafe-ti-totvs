@@ -28,13 +28,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import com.felipecrescencio.bot.CafeTiTotvsBot;
 import com.felipecrescencio.config.JpaConfiguration;
-import com.felipecrescencio.service.WeeklyCoffeeServiceBean;
 
 @Import(JpaConfiguration.class)
 @SpringBootApplication(scanBasePackages = {"com.felipecrescencio"})
@@ -42,9 +37,11 @@ public class CoffeeITApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CoffeeITApplication.class);
 
+	
+	
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext context = SpringApplication.run(CoffeeITApplication.class, args);
-		WeeklyCoffeeServiceBean wcsb = context.getBean(WeeklyCoffeeServiceBean.class);
+/*		WeeklyCoffeeServiceBean wcsb = context.getBean(WeeklyCoffeeServiceBean.class);
 
 		ApiContextInitializer.init();
 
@@ -55,7 +52,7 @@ public class CoffeeITApplication {
 			botsApi.registerBot(cttb);
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		// run each 25 min
 		final long timeInterval = 1500000;
