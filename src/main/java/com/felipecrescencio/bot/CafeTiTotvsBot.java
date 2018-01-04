@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,7 +13,6 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.service.WeeklyCoffeeService;
 
-@Component
 public class CafeTiTotvsBot extends TelegramLongPollingBot {
 
 	private static final Logger log = LoggerFactory.getLogger(CafeTiTotvsBot.class);

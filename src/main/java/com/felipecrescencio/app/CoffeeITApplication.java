@@ -26,9 +26,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.event.EventListener;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import com.felipecrescencio.bot.CafeTiTotvsBot;
 import com.felipecrescencio.config.JpaConfiguration;
 
 @Import(JpaConfiguration.class)
@@ -37,22 +43,21 @@ public class CoffeeITApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CoffeeITApplication.class);
 
-	
-	
-	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext context = SpringApplication.run(CoffeeITApplication.class, args);
-/*		WeeklyCoffeeServiceBean wcsb = context.getBean(WeeklyCoffeeServiceBean.class);
-
+	@EventListener(ApplicationReadyEvent.class)
+	public void doSomethingAfterStartup() {
 		ApiContextInitializer.init();
 
 		TelegramBotsApi botsApi = new TelegramBotsApi();
 
 		try {
-			CafeTiTotvsBot cttb = new CafeTiTotvsBot(wcsb);
-			botsApi.registerBot(cttb);
+			botsApi.registerBot(new CafeTiTotvsBot());
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
-		}*/
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		ConfigurableApplicationContext context = SpringApplication.run(CoffeeITApplication.class, args);
 
 		// run each 25 min
 		final long timeInterval = 1500000;
