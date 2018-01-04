@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
@@ -41,17 +40,19 @@ public class CoffeeITApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CoffeeITApplication.class);
 	
-	public static CafeTiTotvsBot cttb = new CafeTiTotvsBot();
+	public static CafeTiTotvsBot cttb;
 	
 	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext context = SpringApplication.run(CoffeeITApplication.class, args);
+		SpringApplication.run(CoffeeITApplication.class, args);
 
 		ApiContextInitializer.init();
 
 		TelegramBotsApi botsApi = new TelegramBotsApi();
 
 		try {
-			botsApi.registerBot(cttb);
+			CafeTiTotvsBot cttb2 = new CafeTiTotvsBot();
+			CoffeeITApplication.cttb = cttb2;
+			botsApi.registerBot(cttb2);
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}
