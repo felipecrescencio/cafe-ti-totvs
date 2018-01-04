@@ -1,6 +1,6 @@
 datasource:
   coffeeitapp:
-    url: jdbc:postgres://ec2-23-21-164-107.compute-1.amazonaws.com:5432/ddgpuvc9d545qs?user=txnhxbncdblocb&password=339e0947b314465fd63c66b15dcdeba9ab85b424ab7e8bb86ca9e00bb605e833
+    url: jdbc:postgresql://ec2-23-21-164-107.compute-1.amazonaws.com:5432/ddgpuvc9d545qs?user=txnhxbncdblocb&password=339e0947b314465fd63c66b15dcdeba9ab85b424ab7e8bb86ca9e00bb605e833
     username: txnhxbncdblocb
     password: 339e0947b314465fd63c66b15dcdeba9ab85b424ab7e8bb86ca9e00bb605e833
     driverClassName: org.postgresql.Driver
