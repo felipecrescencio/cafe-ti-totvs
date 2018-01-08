@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.MessageEntity;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -24,6 +25,12 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		// We check if the update has a message and the message has text
 		if (update.hasMessage() && update.getMessage().hasText()) {
+			log.info("message: "+ update.getMessage().getText());
+			
+			for(MessageEntity me : update.getMessage().getEntities()) {
+				log.info("message ent: "+ me);
+			}
+
 			String message2 = update.getMessage().getText().toLowerCase().trim(); 
 			if((message2.indexOf("cafe") >= 0 || message2.indexOf("café") >= 0) && message2.indexOf("semana") >= 0) {
 				String s = "";
