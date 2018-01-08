@@ -48,7 +48,13 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 
     @Override
     public WeeklyCoffee update(WeeklyCoffee weeklyCoffee) throws Exception {
-        return null;
+    	
+    	WeeklyCoffee toBeSavedWeeklyCoffee = weeklyCoffeeRepository.findOne(weeklyCoffee.getId());
+        BeanUtils.copyProperties(weeklyCoffee, toBeSavedWeeklyCoffee);
+        toBeSavedWeeklyCoffee.setName(weeklyCoffee.getName());
+        toBeSavedWeeklyCoffee.setWhoBroughtName(weeklyCoffee.getWhoBroughtName());
+        toBeSavedWeeklyCoffee.setDayOfWeek(weeklyCoffee.getDayOfWeek());
+        return weeklyCoffeeRepository.save(toBeSavedWeeklyCoffee);
     }
 
     @Override

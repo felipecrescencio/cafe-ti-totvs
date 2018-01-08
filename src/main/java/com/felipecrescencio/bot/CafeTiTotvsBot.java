@@ -1,6 +1,9 @@
 package com.felipecrescencio.bot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,15 +27,36 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		// We check if the update has a message and the message has text
+		handlemessage:
 		if (update.hasMessage() && update.getMessage().hasText()) {
+			String message2 = update.getMessage().getText().toLowerCase().trim();
+			if(message2.indexOf("@cafetitotvsbot") < 0) {
+				break handlemessage;
+			}
+
 			log.info("message: "+ update.getMessage().getText());
-			
+
+/*			mention
 			for(MessageEntity me : update.getMessage().getEntities()) {
 				log.info("message ent: "+ me);
 			}
+*/
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+			
+			int tokenSum=0;
+			for(String token : message2.split(" ")) {
+//				if(c.setTime(sdf.parse(token)) 
+//				if(c.setTime(sdf.parse(token))
 
-			String message2 = update.getMessage().getText().toLowerCase().trim(); 
-			if((message2.indexOf("cafe") >= 0 || message2.indexOf("café") >= 0) && message2.indexOf("semana") >= 0) {
+				if(token.equalsIgnoreCase("cafe") || token.equalsIgnoreCase("café")) {
+					tokenSum += 1;
+				} else if(token.equalsIgnoreCase("semana")) {
+					tokenSum += 2;
+				}
+			}
+
+			if(tokenSum == 3) {
 				String s = "";
 				if(weeklyCoffeeService != null) {
 					List<WeeklyCoffee> lwc = weeklyCoffeeService.findAll();

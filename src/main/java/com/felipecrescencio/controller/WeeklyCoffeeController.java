@@ -48,6 +48,30 @@ public class WeeklyCoffeeController {
 		return "Saved";
 	}
 
+	@RequestMapping(path="/update") // Map ONLY GET Requests
+	public @ResponseBody String updateUser (@RequestParam String id, @RequestParam String name, @RequestParam String dayOfWeek, @RequestParam String whoBroughtName) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+		try {
+			Long idl = Long.valueOf(id);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+			c.setTime(sdf.parse(dayOfWeek));
+
+			WeeklyCoffee n = new WeeklyCoffee(name, c, whoBroughtName);
+			n.setId(idl);
+			weeklyCoffeeService.update(n);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "Saved";
+	}
+	
 	@RequestMapping(path="/all")
 	public @ResponseBody Iterable<WeeklyCoffee> getAllWeeklyCoffees() {
 		// This returns a JSON or XML with the users
