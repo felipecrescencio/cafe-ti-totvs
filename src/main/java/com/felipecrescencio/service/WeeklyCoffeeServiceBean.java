@@ -3,6 +3,7 @@ package com.felipecrescencio.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -75,14 +76,17 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 */
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 //		Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+		
 		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
 		
 		int tokenSum=0;
 		
 		handleToken:
 		for(String token : message2.split(" ")) {
 			try {
-				c.setTime(sdf.parse(token));
+				Date d = sdf.parse(token);
+				c.setTime(d);
 				tokenSum = 1;
 				break handleToken;
 			} catch (ParseException e) {
@@ -105,7 +109,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 				if(today2 == Calendar.SATURDAY)
 					today2++;
 
-				c.set(Calendar.DAY_OF_MONTH, 6 - today2);
+				c.add(Calendar.DAY_OF_MONTH, 6 - today2);
 				WeeklyCoffee wc2 = findByDate(c);
 				
 				if(wc2 != null) {
