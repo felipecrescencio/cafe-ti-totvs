@@ -109,7 +109,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 				if(today2 == Calendar.SATURDAY)
 					today2++;
 
-				c.add(Calendar.DAY_OF_MONTH, 8 - today2);
+				c.add(Calendar.DAY_OF_MONTH, 6 - today2);
 				WeeklyCoffee wc2 = findByDate(c);
 				
 				if(wc2 != null) {
@@ -123,7 +123,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 				if(today == Calendar.SATURDAY)
 					today++;
 
-				c.set(Calendar.DAY_OF_MONTH, 6 - today);
+				c.set(Calendar.DAY_OF_MONTH, 8 - today);
 				WeeklyCoffee wc = findByDate(c);
 				
 				if(wc != null) {
