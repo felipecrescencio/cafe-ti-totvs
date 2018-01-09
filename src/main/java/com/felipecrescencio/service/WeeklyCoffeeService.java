@@ -1,5 +1,6 @@
 package com.felipecrescencio.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,10 +14,14 @@ public interface WeeklyCoffeeService {
     List<WeeklyCoffee> findAll();
 
     WeeklyCoffee findById(int id);
+    
+    WeeklyCoffee findByDate(Calendar date);
 
     WeeklyCoffee create(WeeklyCoffee wc) throws Exception;
 
     WeeklyCoffee update(WeeklyCoffee wc) throws Exception;
 
     void delete(int id) throws Exception;
+    
+    String processMessage(String message2);
 }

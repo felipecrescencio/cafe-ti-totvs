@@ -7,4 +7,5 @@ import com.felipecrescencio.entity.WeeklyCoffee;
 
 @Repository
 public interface WeeklyCoffeeRepository extends JpaRepository<WeeklyCoffee, Long> {
+	
 }

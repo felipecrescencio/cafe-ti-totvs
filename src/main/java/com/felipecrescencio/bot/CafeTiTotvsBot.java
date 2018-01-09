@@ -1,29 +1,34 @@
 package com.felipecrescencio.bot;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.MessageEntity;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.service.WeeklyCoffeeService;
 
 public class CafeTiTotvsBot extends TelegramLongPollingBot {
 
 	private static final Logger log = LoggerFactory.getLogger(CafeTiTotvsBot.class);
-
+	
+	private String botUsername;
+	
+	private String botToken;
+	
 	@Autowired
     public WeeklyCoffeeService weeklyCoffeeService;
-    
+
+	public CafeTiTotvsBot() {
+		Map<String, String> env = System.getenv();
+		this.botUsername = env.get("BOT_USERNAME");		
+		this.botToken = env.get("BOT_TOKEN");
+	}
+	
 	@Override
 	public void onUpdateReceived(Update update) {
 		// We check if the update has a message and the message has text
@@ -35,43 +40,21 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 			}
 
 			log.info("message: "+ update.getMessage().getText());
-
-/*			mention
-			for(MessageEntity me : update.getMessage().getEntities()) {
-				log.info("message ent: "+ me);
-			}
-*/
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
 			
-			int tokenSum=0;
-			for(String token : message2.split(" ")) {
-//				if(c.setTime(sdf.parse(token)) 
-//				if(c.setTime(sdf.parse(token))
+			if(weeklyCoffeeService != null) {
+				String s = weeklyCoffeeService.processMessage(message2);
+				
+				if(s != null && !s.trim().isEmpty()) {
 
-				if(token.equalsIgnoreCase("cafe") || token.equalsIgnoreCase("café")) {
-					tokenSum += 1;
-				} else if(token.equalsIgnoreCase("semana")) {
-					tokenSum += 2;
-				}
-			}
+					SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
+							.setChatId(update.getMessage().getChatId())
+							.setText(s);
 
-			if(tokenSum == 3) {
-				String s = "";
-				if(weeklyCoffeeService != null) {
-					List<WeeklyCoffee> lwc = weeklyCoffeeService.findAll();
-
-					s = "O café dessa semana é do(a) "+ lwc.get(0).getName() +".";
-				}
-
-				SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-						.setChatId(update.getMessage().getChatId())
-						.setText(s);
-
-				try {
-					execute(message); // Call method to send the message
-				} catch (TelegramApiException e) {
-					e.printStackTrace();
+					try {
+						execute(message); // Call method to send the message
+					} catch (TelegramApiException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -79,11 +62,11 @@ public class CafeTiTotvsBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotUsername() {
-		return "cafetitotvsbot";
+		return botUsername;
 	}
 
 	@Override
 	public String getBotToken() {
-		return "521421948:AAGXUg8X9inlLDaBpxvO0Rz5SRwmiJBEhS8";
+		return botToken;
 	}
 }

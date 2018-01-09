@@ -2,7 +2,9 @@ package com.felipecrescencio.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +75,16 @@ public class WeeklyCoffeeController {
 	}
 	
 	@RequestMapping(path="/all")
-	public @ResponseBody Iterable<WeeklyCoffee> getAllWeeklyCoffees() {
+	public @ResponseBody Iterable<String> getAllWeeklyCoffees() {
+		List<String> l1 = new ArrayList<String>();
+		for(WeeklyCoffee w : weeklyCoffeeService.findAll()) {
+			l1.add(w.toString());
+		}
+		return l1;
+	}
+
+	@RequestMapping(path="/allraw")
+	public @ResponseBody Iterable<WeeklyCoffee> getAllWeeklyCoffeesRaw() {
 		// This returns a JSON or XML with the users
 		return weeklyCoffeeService.findAll();
 	}
