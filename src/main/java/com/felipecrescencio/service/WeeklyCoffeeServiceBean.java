@@ -129,7 +129,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 				if(wc != null) {
 					String s = "O café dessa semana é do(a) "+ wc.getName();
 					
-					if(wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()))
+					if(!wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()))
 						s += ", mas quem irá trazer é o(a) "+ wc.getWhoBroughtName();
 					else
 						s += ".";
