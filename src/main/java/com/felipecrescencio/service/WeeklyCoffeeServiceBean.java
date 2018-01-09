@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -140,7 +141,8 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 		for(WeeklyCoffee wc : weeklyCoffeeRepository.findAll()) {
 			log.info("wc date:"+ sdf.format(wc.getDayOfWeek().getTime()));
 			log.info("wc.getDayOfWeek().equals(date)"+ wc.getDayOfWeek().equals(date));
-			if(wc.getDayOfWeek().equals(date)) {
+//			if(wc.getDayOfWeek().equals(date)) {
+			if(DateUtils.isSameDay(wc.getDayOfWeek(), date)) {
 				return wc;
 			}
 		}

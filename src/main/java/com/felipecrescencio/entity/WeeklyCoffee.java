@@ -2,7 +2,6 @@ package com.felipecrescencio.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -64,10 +63,8 @@ public class WeeklyCoffee {
     public String toString() {
     	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    	Date d = new Date(dayOfWeek.getTimeInMillis());
-
     	return String.format(
                 "WeeklyCoffee[id=%d, name='%s', dayOfWeek='%s', whoBroughtName=%s]",
-                id, name, sdf.format(d) , whoBroughtName);
+                id, name, sdf.format(dayOfWeek.getTime()) , whoBroughtName);
     }
 }
