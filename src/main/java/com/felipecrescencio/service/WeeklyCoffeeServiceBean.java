@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,12 +15,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.felipecrescencio.bot.CafeTiTotvsBot;
 import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.repository.WeeklyCoffeeRepository;
 
 @Service
 public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
-    @Autowired
+	private static final Logger log = LoggerFactory.getLogger(WeeklyCoffeeServiceBean.class);
+
+	@Autowired
     private WeeklyCoffeeRepository weeklyCoffeeRepository;
 
     @Override
@@ -91,6 +96,8 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 			}
 		}
 		
+		log.info("Tokensum: "+ tokenSum);
+		
 		switch(tokenSum) {
 			case 1:
 				int today2 = c.get(Calendar.DAY_OF_WEEK);
@@ -127,7 +134,10 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 
 	@Override
 	public WeeklyCoffee findByDate(Calendar date) {
+		log.info("Date param:"+ date);
 		for(WeeklyCoffee wc : weeklyCoffeeRepository.findAll()) {
+			log.info("wc date:"+ wc.getDayOfWeek());
+			log.info("wc.getDayOfWeek().equals(date)"+ wc.getDayOfWeek().equals(date));
 			if(wc.getDayOfWeek().equals(date)) {
 				return wc;
 			}
