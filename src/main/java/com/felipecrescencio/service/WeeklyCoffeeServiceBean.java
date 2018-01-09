@@ -136,9 +136,9 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 	public WeeklyCoffee findByDate(Calendar date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		log.info("Date param:"+ sdf.format(date));
+		log.info("Date param:"+ sdf.format(date.getTime()));
 		for(WeeklyCoffee wc : weeklyCoffeeRepository.findAll()) {
-			log.info("wc date:"+ sdf.format(wc.getDayOfWeek()));
+			log.info("wc date:"+ sdf.format(wc.getDayOfWeek().getTime()));
 			log.info("wc.getDayOfWeek().equals(date)"+ wc.getDayOfWeek().equals(date));
 			if(wc.getDayOfWeek().equals(date)) {
 				return wc;
