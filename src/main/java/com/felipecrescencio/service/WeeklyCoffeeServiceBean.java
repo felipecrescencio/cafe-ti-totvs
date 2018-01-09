@@ -113,7 +113,18 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 				WeeklyCoffee wc2 = findByDate(c);
 				
 				if(wc2 != null) {
-					return "O café de "+ sdf.format(c.getTime()) +" é do(a) "+ wc2.getName() +".";
+					String s = "O café de "+ sdf.format(c.getTime()) +" é do(a) "+ wc2.getName();
+					
+					log.info("wc.getName(): "+ wc2.getName());
+					log.info("wc.getWhoBroughtName(): "+ wc2.getWhoBroughtName());
+					log.info("wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()): "+ wc2.getName().equalsIgnoreCase(wc.getWhoBroughtName())); 
+					
+					if(!wc2.getName().equalsIgnoreCase(wc2.getWhoBroughtName()))
+						s += ", mas quem irá trazer é o(a) "+ wc2.getWhoBroughtName();
+					else
+						s += ".";
+						
+					return s;
 				}
 
 				return "";
@@ -132,7 +143,6 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 					log.info("wc.getName(): "+ wc.getName());
 					log.info("wc.getWhoBroughtName(): "+ wc.getWhoBroughtName());
 					log.info("wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()): "+ wc.getName().equalsIgnoreCase(wc.getWhoBroughtName())); 
-					
 					
 					if(!wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()))
 						s += ", mas quem irá trazer é o(a) "+ wc.getWhoBroughtName();
