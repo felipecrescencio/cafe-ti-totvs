@@ -117,7 +117,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 					
 					log.info("wc.getName(): "+ wc2.getName());
 					log.info("wc.getWhoBroughtName(): "+ wc2.getWhoBroughtName());
-					log.info("wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()): "+ wc2.getName().equalsIgnoreCase(wc.getWhoBroughtName())); 
+					log.info("wc.getName().equalsIgnoreCase(wc.getWhoBroughtName()): "+ wc2.getName().equalsIgnoreCase(wc2.getWhoBroughtName())); 
 					
 					if(!wc2.getName().equalsIgnoreCase(wc2.getWhoBroughtName()))
 						s += ", mas quem irá trazer é o(a) "+ wc2.getWhoBroughtName();
