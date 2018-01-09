@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.felipecrescencio.bot.CafeTiTotvsBot;
 import com.felipecrescencio.entity.WeeklyCoffee;
 import com.felipecrescencio.repository.WeeklyCoffeeRepository;
 
@@ -38,7 +36,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
     }
 
     @Override
-    public WeeklyCoffee findById(int id) {
+    public WeeklyCoffee findById(long id) {
         return null;
     }
 
@@ -65,8 +63,8 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
-
+    public void delete(long id) throws Exception {
+    	weeklyCoffeeRepository.delete(id);
     }
     
     public String processMessage(String message2) {
@@ -76,7 +74,8 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 		}
 */
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+//		Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+		Calendar c = Calendar.getInstance();
 		
 		int tokenSum=0;
 		
@@ -140,7 +139,7 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 		log.info("Date param:"+ sdf.format(date.getTime()));
 		for(WeeklyCoffee wc : weeklyCoffeeRepository.findAll()) {
 			log.info("wc date:"+ sdf.format(wc.getDayOfWeek().getTime()));
-			log.info("wc.getDayOfWeek().equals(date)"+ wc.getDayOfWeek().equals(date));
+			log.info("DateUtils.isSameDay(wc.getDayOfWeek(), date): "+ DateUtils.isSameDay(wc.getDayOfWeek(), date));
 //			if(wc.getDayOfWeek().equals(date)) {
 			if(DateUtils.isSameDay(wc.getDayOfWeek(), date)) {
 				return wc;

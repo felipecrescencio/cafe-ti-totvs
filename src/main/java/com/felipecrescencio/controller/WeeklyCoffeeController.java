@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +33,8 @@ public class WeeklyCoffeeController {
 		// @RequestParam means it is a parameter from the GET or POST request
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+//			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+			Calendar c = Calendar.getInstance();
 			c.setTime(sdf.parse(dayOfWeek));
 
 			WeeklyCoffee n = new WeeklyCoffee(name, c, whoBroughtName);
@@ -57,7 +57,7 @@ public class WeeklyCoffeeController {
 		try {
 			Long idl = Long.valueOf(id);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+			Calendar c = Calendar.getInstance();
 			c.setTime(sdf.parse(dayOfWeek));
 
 			WeeklyCoffee n = new WeeklyCoffee(name, c, whoBroughtName);
@@ -89,35 +89,20 @@ public class WeeklyCoffeeController {
 		return weeklyCoffeeService.findAll();
 	}
 
-	/*	@RequestMapping("/db")
-	String db(Map<String, Object> model) {
-		try (Connection connection = dataSource.getConnection()) {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-
-			ArrayList<String> output = new ArrayList<String>();
-			while (rs.next()) {
-				output.add("Read from DB: " + rs.getTimestamp("tick"));
-			}
-
-			model.put("records", output);
-			return "db";
+	@RequestMapping(path="/delete") // Map ONLY GET Requests
+	public @ResponseBody String delete (@RequestParam String id) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+		try {
+			weeklyCoffeeService.delete(Long.parseLong(id));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (Exception e) {
-			model.put("message", e.getMessage());
-			return "error";
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
 
-	@Bean
-	public DataSource dataSource() throws SQLException {
-		if (dbUrl == null || dbUrl.isEmpty()) {
-			return new HikariDataSource();
-		} else {
-			HikariConfig config = new HikariConfig();
-			config.setJdbcUrl(dbUrl);
-			return new HikariDataSource(config);
-		}
-	}*/
+		return "Deleted";
+	}
 }

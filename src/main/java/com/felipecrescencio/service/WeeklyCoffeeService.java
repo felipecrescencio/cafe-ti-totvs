@@ -13,7 +13,7 @@ public interface WeeklyCoffeeService {
 
     List<WeeklyCoffee> findAll();
 
-    WeeklyCoffee findById(int id);
+    WeeklyCoffee findById(long id);
     
     WeeklyCoffee findByDate(Calendar date);
 
@@ -21,7 +21,7 @@ public interface WeeklyCoffeeService {
 
     WeeklyCoffee update(WeeklyCoffee wc) throws Exception;
 
-    void delete(int id) throws Exception;
+    void delete(long id) throws Exception;
     
     String processMessage(String message2);
 }
