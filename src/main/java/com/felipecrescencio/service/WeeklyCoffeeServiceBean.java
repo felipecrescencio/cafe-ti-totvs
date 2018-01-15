@@ -131,10 +131,12 @@ public class WeeklyCoffeeServiceBean implements WeeklyCoffeeService {
 			case 5:
 				int today = c.get(Calendar.DAY_OF_WEEK);
 				
-				if(today == Calendar.SATURDAY)
-					today++;
+				if(today == Calendar.SATURDAY) {
+					c.add(Calendar.DAY_OF_MONTH, 1);
+					today = 1;
+				}
 
-				c.set(Calendar.DAY_OF_WEEK, 8 - today);
+				c.add(Calendar.DAY_OF_MONTH, 6 - today);
 				WeeklyCoffee wc = findByDate(c);
 				
 				if(wc != null) {
