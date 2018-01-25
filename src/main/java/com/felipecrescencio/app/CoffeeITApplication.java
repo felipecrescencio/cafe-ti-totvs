@@ -57,8 +57,8 @@ public class CoffeeITApplication {
 			e.printStackTrace();
 		}
 
-		// run each 25 min
-		final long timeInterval = 1500000;
+		// run each 27 min
+		final long timeInterval = 1620000;
 		Runnable runnable = new Runnable() {
 
 			public void run() {
